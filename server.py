@@ -53,7 +53,11 @@ def extract_uploaded_image(body, content_type):
 def extract_units_with_gemini(image_bytes, mime_type):
     """Ask Gemini to identify electricity consumption units from the bill image."""
     started_at = time.perf_counter()
-    api_key = os.environ.get('GEMINI-API-KEY') or os.environ.get('GEMINI_API_KEY')
+    api_key = (
+        os.environ.get('GCP_API_KEY')
+        or os.environ.get('GEMINI-API-KEY')
+        or os.environ.get('GEMINI_API_KEY')
+    )
     if not api_key:
         raise RuntimeError('Gemini API key is not configured on the server.')
 
@@ -136,7 +140,11 @@ def extract_units_with_gemini(image_bytes, mime_type):
 
 def ask_gemini(message, audit_context):
     """Answer an energy question using Gemini and the user's current audit context."""
-    api_key = os.environ.get('GEMINI-API-KEY') or os.environ.get('GEMINI_API_KEY')
+    api_key = (
+        os.environ.get('GCP_API_KEY')
+        or os.environ.get('GEMINI-API-KEY')
+        or os.environ.get('GEMINI_API_KEY')
+    )
     if not api_key:
         raise RuntimeError('Gemini API key is not configured on the server.')
 
